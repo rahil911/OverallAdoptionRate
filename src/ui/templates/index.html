@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overall Adoption Rate Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <div class="header-content">
+                <h1>Overall Adoption Rate Chatbot</h1>
+                <div class="header-controls">
+                    <button id="resetButton" title="Reset conversation">
+                        <i class="fas fa-sync-alt"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="chat-container">
+            <div class="chat-controls">
+                <div class="chart-toggle-container">
+                    <button id="toggleChartButton" class="chart-toggle" title="Toggle chart view">
+                        <i class="fas fa-chart-line"></i> Toggle Chart
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-area-container">
+                <div class="chat-area" id="chatArea">
+                    <div class="welcome-message">
+                        <h2>Welcome to the Overall Adoption Rate Chatbot</h2>
+                        <p>Ask questions about adoption rates, trends, and insights. For example:</p>
+                        <ul class="example-queries">
+                            <li><button class="example-query-btn">What is our current adoption rate?</button></li>
+                            <li><button class="example-query-btn">How has our adoption rate changed since last quarter?</button></li>
+                            <li><button class="example-query-btn">What caused the spike in adoption in March 2023?</button></li>
+                            <li><button class="example-query-btn">What will our adoption rate be next month?</button></li>
+                            <li><button class="example-query-btn">How can we improve our adoption rate?</button></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="chart-area" id="chartArea">
+                    <div class="chart-container">
+                        <div id="adoptionRateChart"></div>
+                    </div>
+                    <div class="chart-controls">
+                        <select id="timeRangeSelector">
+                            <option value="1m">Last Month</option>
+                            <option value="3m">Last 3 Months</option>
+                            <option value="6m">Last 6 Months</option>
+                            <option value="1y" selected>Last Year</option>
+                            <option value="2y">Last 2 Years</option>
+                            <option value="all">All Time</option>
+                        </select>
+                        <select id="metricSelector">
+                            <option value="monthly">Monthly Adoption Rate</option>
+                            <option value="daily">Daily Adoption Rate</option>
+                            <option value="weekly">Weekly Adoption Rate</option>
+                            <option value="yearly">Yearly Adoption Rate</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <form id="chatForm">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            placeholder="Ask a question about adoption rates..." 
+                            aria-label="Your message"
+                            autocomplete="off"
+                        >
+                        <button type="submit" id="sendButton" aria-label="Send message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Templates for dynamic content -->
+    <template id="userMessageTemplate">
+        <div class="message user-message">
+            <div class="message-content">
+                <p></p>
+            </div>
+            <div class="message-timestamp"></div>
+        </div>
+    </template>
+
+    <template id="assistantMessageTemplate">
+        <div class="message assistant-message">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <p></p>
+            </div>
+            <div class="message-timestamp"></div>
+        </div>
+    </template>
+
+    <template id="loadingTemplate">
+        <div class="message assistant-message loading">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <div class="loading-animation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="errorMessageTemplate">
+        <div class="message error-message">
+            <div class="message-content">
+                <p></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+</body>
+</html> 
